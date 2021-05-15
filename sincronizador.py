@@ -2,27 +2,27 @@ import cristian
 import berkeley
 import reloj
 
+
 class Sincronizador:
 
-    def __init__(self, relojes=[], coordinador):
-
+    def __init__(self, relojes=[]):
         self.relojes =  relojes
-        self.coordinador = coordinador
-
+        self.ber = berkeley.Berkeley(relojes)
+        self.cri = cristian.CristianStarter(relojes)
 
     def set_relojes(self, relojes):
         self.relojes = relojes
-
-    def set_coordinador(self, relojes):
-        
-        for r in relojes:
-            if r.lat= 0:
-                self.coordinador = r
-                break
-        
+        self.ber = berkeley.Berkeley(relojes)
+        self.cri = cristian.CristianStarter(relojes)
 
     def get_relojes(self):
         return self.relojes
 
     def get_coordinador(self):
-        return self.coordinador
+        return self.ber.maestro
+
+    def start_berkeley(self):
+        self.ber.sincronizar()
+
+    def start_cristian(self):
+        self.cri.sincronizar()
